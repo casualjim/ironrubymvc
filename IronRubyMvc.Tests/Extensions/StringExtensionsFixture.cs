@@ -10,7 +10,9 @@ namespace IronRubyMvc.Tests.Extensions
 {
     public class StringExtensionsFixture
     {
-        [Fact]
+        // moved to bacon specs
+
+        /*[Fact]
         public void ShouldReturnTrue_ForNullValue_WhenAskedForNullOrBlank()
         {
             Assert.True(((string) null).IsNullOrBlank());
@@ -73,6 +75,6 @@ namespace IronRubyMvc.Tests.Extensions
                                                                                   DateTime.Now.ToShortDateString());
 
             Assert.Equal(expected, actual);
-        }
+        }*/
     }
 }

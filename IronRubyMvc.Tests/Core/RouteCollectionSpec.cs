@@ -14,7 +14,10 @@ using Xunit;
 
 namespace System.Web.Mvc.IronRuby.Tests.Core
 {
-    [Concern(typeof (RubyRoutes))]
+
+    //Moved to bacon specs
+
+    /*[Concern(typeof (RubyRoutes))]
     public class when_a_value_is_mapped : InstanceContextSpecification<RubyRoutes>
     {
         private RouteCollection _routeCollection;
@@ -79,7 +82,8 @@ namespace System.Web.Mvc.IronRuby.Tests.Core
         public void then_it_should_have_a_mapping()
         {
             var obj = (Route) _routeCollection["my_controller"];
+            
             ((Route) Sut["my_controller"]).Url.ShouldBeEqualTo(obj.Url);
         }
-    }
+    }*/
 }

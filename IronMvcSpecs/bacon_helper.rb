@@ -12,3 +12,6 @@ load_assembly 'BugWorkarounds'
 include System::Web::Routing
 include System::Web::Mvc
 include System::Collections::Generic
+include BugWorkarounds
+
+IRCONTROLLER = System::Web::Mvc::IronRuby::Controllers
