@@ -9,11 +9,11 @@ end
 
 describe "DictionaryExtensions" do
 
-  describe "When converting existing values" do
+  before do
+    @hash = { "first" => "first_action", "second" => "second action" }
+  end
 
-    before do
-      @hash = { "first" => "first_action", "second" => "second action" }
-    end
+  describe "When converting existing values" do
 
     it "should convert a hash to a route dictionary" do
       expected = build_dictionary(RouteValueDictionary)
@@ -43,6 +43,19 @@ describe "DictionaryExtensions" do
       expected.each do |pair|
         pair.value.should.be == actual[pair.key]
       end
+    end
+
+  end
+
+  describe "iterating" do
+
+    it "should iterate over a hash" do
+      counter = 0
+
+      p = Proc.new { |key, value| counter += 1 }
+      IDictionaryExtensions.for_each(@hash, Workarounds.wrap_proc2(p))
+
+      counter.should.be == 2
     end
 
   end

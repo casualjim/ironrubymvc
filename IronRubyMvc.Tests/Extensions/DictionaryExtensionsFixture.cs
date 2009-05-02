@@ -13,7 +13,9 @@ namespace IronRubyMvc.Tests.Extensions
 {
     public class DictionaryExtensionsFixture
     {
-        [Fact]
+
+        // Moved to bacon spec
+        /*[Fact]
         public void ShouldBeAbleToConvertHashToRouteDictionary()
         {
             var expected = new RouteValueDictionary {{"first", "first_action"}, {"second", "second action"}};
@@ -43,6 +45,6 @@ namespace IronRubyMvc.Tests.Extensions
                 Assert.NotNull(actual[pair.Key]);
                 Assert.Equal(pair.Value, actual[pair.Key]);
             }
-        }
+        }*/
     }
 }

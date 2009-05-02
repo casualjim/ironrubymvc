@@ -17,6 +17,7 @@ namespace BugWorkarounds
         public static bool IsEmpty(IEnumerable collection) { return collection.IsEmpty(); }
         public static bool IsEmpty<T>(IEnumerable<T> collection) { return collection.IsEmpty(); }
         public static Action<object> WrapProc(Proc proc) { return obj => proc.Call(obj); }
+        public static Action<object, object> WrapProc2(Proc proc) { return (obj1, obj2) => proc.Call(obj1, obj2); }
         public static Action<T> WrapProc<T>(Proc proc) { return obj => proc.Call(obj); }
     }
 
