@@ -11,7 +11,8 @@ namespace IronRubyMvc.Tests.Extensions
 {
     public class IEnumerableExtensionsFixture
     {
-        [Fact]
+        //moved to bacon specs
+        /*[Fact]
         public void ShouldIterateOverAGenericCollection()
         {
             IEnumerable<int> collection = new[] {1, 2, 3, 4, 5, 6, 7, 8};
@@ -43,6 +44,6 @@ namespace IronRubyMvc.Tests.Extensions
 
             Assert.Equal(8, count);
             Assert.Equal(36, result);
-        }
+        }*/
     }
 }

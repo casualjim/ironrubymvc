@@ -7,7 +7,8 @@ using Xunit;
 
 namespace System.Web.Mvc.IronRuby.Tests.Extensions
 {
-    public class ObjectExtensionsFixture
+    // Moved to bacon specs
+    /*public class ObjectExtensionsFixture
     {
         [Fact]
         public void ShouldReturnTrueForNullObjectWhenCheckingForNull()
@@ -32,5 +33,5 @@ namespace System.Web.Mvc.IronRuby.Tests.Extensions
         {
             Assert.True(new object().IsNotNull());
         }
-    }
+    }*/
 }
