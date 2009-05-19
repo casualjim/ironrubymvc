@@ -53,7 +53,7 @@ describe "DictionaryExtensions" do
       counter = 0
 
       p = Proc.new { |key, value| counter += 1 }
-      IDictionaryExtensions.for_each(@hash, Workarounds.wrap_proc2(p))
+      IDictionaryExtensions.for_each(@hash, BugWorkarounds.wrap_proc2(p))
 
       counter.should.be == 2
     end

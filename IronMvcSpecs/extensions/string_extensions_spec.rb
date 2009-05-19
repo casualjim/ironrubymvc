@@ -4,7 +4,7 @@ describe "StringExtensions" do
   
   describe "when asking for null or blank" do
     it "should return true for a null value" do
-      Workarounds.is_null_or_blank(nil).should.be.true?
+      BugWorkarounds.is_null_or_blank(nil).should.be.true?
     end
     
     it "should return true for an empty value" do
@@ -24,7 +24,7 @@ describe "StringExtensions" do
   describe "when asking for not null or blank" do
     
     it "should return false when value is null" do
-      Workarounds.is_not_null_or_blank(nil).should.be.false?
+      BugWorkarounds.is_not_null_or_blank(nil).should.be.false?
     end
     
     it "should return false for an empty value" do

@@ -20,7 +20,7 @@ describe "IEnumerableExtensions" do
     it "should iterate over an untyped collection" do
       counter, result = 0, 0
       p = Proc.new {|item| counter += 1; result += item }
-      iterator = Workarounds.wrap_proc(p)
+      iterator = BugWorkarounds.wrap_proc(p)
       IEnumerableExtensions.for_each(@collection, iterator)
       counter.should == 8
       result.should == 36
@@ -29,7 +29,7 @@ describe "IEnumerableExtensions" do
     it "should iterate over a generic collection" do
       counter, result = 0, 0
       p = Proc.new {|item| counter += 1; result += item }
-      iterator = Workarounds.method(:wrap_proc).of(Fixnum).call(p)
+      iterator = BugWorkarounds.method(:wrap_proc).of(Fixnum).call(p)
       IEnumerableExtensions.method(:for_each).of(Fixnum).call(@generic_collection, iterator)
       counter.should == 9
       result.should == 45
@@ -39,11 +39,11 @@ describe "IEnumerableExtensions" do
   describe "empty checking" do
   
     it "should raise an ArgumentException for a non-generic method call with null" do
-      should.raise(System::NullReferenceException){ Workarounds.is_empty(nil) }
+      should.raise(System::NullReferenceException){ BugWorkarounds.is_empty(nil) }
     end
     
     it "should raise an ArgumentException for a non-generic method call with null" do
-      should.raise(System::NullReferenceException){ Workarounds.method(:is_empty).of(System::String).call(nil) }
+      should.raise(System::NullReferenceException){ BugWorkarounds.method(:is_empty).of(System::String).call(nil) }
     end
     
     it "should be true for an empty non-generic collection" do

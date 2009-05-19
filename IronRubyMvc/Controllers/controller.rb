@@ -324,8 +324,8 @@ module IronRubyMvc
 end
 
 #alias longer namespaces for convenience
-Controller = IronRubyMvc::Controller
-ActionFilter = System::Web::Mvc::IronRuby::Controllers::RubyActionFilter
-AuthorizationFilter = System::Web::Mvc::IronRuby::Controllers::RubyAuthorizationFilter
-ExceptionFilter = System::Web::Mvc::IronRuby::Controllers::RubyExceptionFilter
-ResultFilter = System::Web::Mvc::IronRuby::Controllers::RubyResultFilter
+Controller = IronRubyMvc::Controller  unless defined? Controller
+ActionFilter = System::Web::Mvc::IronRuby::Controllers::RubyActionFilter  unless defined? ActionFilter
+AuthorizationFilter = System::Web::Mvc::IronRuby::Controllers::RubyAuthorizationFilter unless defined? AuthorizationFilter
+ExceptionFilter = System::Web::Mvc::IronRuby::Controllers::RubyExceptionFilter unless defined? ExceptionFilter
+ResultFilter = System::Web::Mvc::IronRuby::Controllers::RubyResultFilter unless defined? ResultFilter

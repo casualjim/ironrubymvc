@@ -126,7 +126,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// </summary>
         /// <param name="variableName">Name of the variable.</param>
         /// <param name="value">The value.</param>
-        void DefineReadOnlyGlobalVariable(string variableName, object value);
+        void DefineGlobalVariable(string variableName, object value);
 
 
         /// <summary>

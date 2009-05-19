@@ -15,6 +15,7 @@ using System.Web.Mvc.IronRuby.Tests.Core;
 using IronRuby;
 using IronRuby.Runtime;
 using Microsoft.Scripting.Hosting;
+using Moq;
 using Moq.Mvc;
 using Rhino.Mocks;
 using Xunit;
@@ -32,6 +33,7 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
 
         protected override void EstablishContext()
         {
+
             if (_scriptRuntime == null)
             {
                 var rubySetup = Ruby.CreateRubySetup();

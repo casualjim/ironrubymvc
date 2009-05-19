@@ -12,7 +12,10 @@ desc "The default task is to run all the specs"
 task :default => :spec
 
 desc "Runs all the specs"
-task :spec => [:copy_binaries, :workarounds, 'spec:extensions']
+task :spec => [:copy_binaries, :workarounds] do
+  puts "starting extension specs"
+  system "ibacon #{Dir.glob('./**/*_spec.rb').join(' ')}"
+end
 
 namespace :spec do 
   desc "runs the specs for the extensions"
@@ -28,6 +31,18 @@ namespace :spec do
 #    specs.each { |spec|
 #      load File.dirname(__FILE__) + "/#{spec}"
 #    }
+  end
+
+  desc "runs the specs for the core classes"
+  task :core do
+    puts "starting core specs"
+    system "ibacon #{Dir.glob('core/**/*_spec.rb').join(' ')}"
+  end
+
+  desc "runs the specs for the controller classes"
+  task :controller do
+    puts "starting controller specs"
+    system "ibacon #{Dir.glob('controllers/**/*_spec.rb').join(' ')}"
   end
 end
 

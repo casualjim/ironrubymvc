@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -214,9 +215,9 @@ namespace System.Web.Mvc.IronRuby.Core
         /// </summary>
         /// <param name="variableName">Name of the variable.</param>
         /// <param name="value">The value.</param>
-        public void DefineReadOnlyGlobalVariable(string variableName, object value)
+        public void DefineGlobalVariable(string variableName, object value)
         {
-            Context.DefineReadOnlyGlobalVariable(variableName, value);
+            Runtime.Globals.SetVariable(variableName, value);
         }
 
         /// <summary>
@@ -292,7 +293,7 @@ namespace System.Web.Mvc.IronRuby.Core
             Operations = Engine.CreateOperations();
             LoadAssemblies(typeof (object), typeof (Uri), typeof (HttpResponseBase), typeof (MembershipCreateStatus), typeof (RouteTable), typeof (Controller), typeof (RubyController));
             AddLoadPaths();
-            DefineReadOnlyGlobalVariable(Constants.ScriptRuntimeVariable, Engine);
+            DefineGlobalVariable(Constants.ScriptRuntimeVariable, Engine);
             RequireControllerFile();
         }
 
@@ -352,7 +353,7 @@ namespace System.Web.Mvc.IronRuby.Core
         {
             if (!vpp.FileExists(routesPath)) return;
             var routeCollection = new RubyRoutes(RouteTable.Routes);
-            engine.DefineReadOnlyGlobalVariable("routes", routeCollection);
+            engine.DefineGlobalVariable("routes", routeCollection);
             engine.RequireRubyFile(routesPath, ReaderType.File);
         }
     }

@@ -43,7 +43,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Ruby Include="bacon_helper.rb" />
+    <Ruby Include="core\route_collection_spec.rb" />
+    <Ruby Include="core\ruby_engine_spec.rb" />
+    <Ruby Include="extensions\dictionary_extensions_spec.rb" />
     <Ruby Include="extensions\extensions.rb" />
+    <Ruby Include="extensions\filter_info_extensions_spec.rb" />
     <Ruby Include="extensions\ienumerable_extensions_spec.rb" />
     <Ruby Include="extensions\object_extensions_spec.rb" />
     <Ruby Include="extensions\string_extensions_spec.rb" />
@@ -51,6 +55,10 @@
     <Ruby Include="Rakefile.rb" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include=".idea" />
+    <Folder Include=".idea\inspectionProfiles" />
+    <Folder Include=".idea\runConfigurations" />
+    <Folder Include="core" />
     <Folder Include="Debug" />
     <Folder Include="lib" />
     <Folder Include="extensions" />
@@ -58,6 +66,16 @@
     <Folder Include="workarounds" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".idea\.rakeTasks" />
+    <Content Include=".idea\encodings.xml" />
+    <Content Include=".idea\inspectionProfiles\profiles_settings.xml" />
+    <Content Include=".idea\inspectionProfiles\Project_Default.xml" />
+    <Content Include=".idea\IronMvcSpecs.iml" />
+    <Content Include=".idea\misc.xml" />
+    <Content Include=".idea\modules.xml" />
+    <Content Include=".idea\projectCodeStyle.xml" />
+    <Content Include=".idea\vcs.xml" />
+    <Content Include=".idea\workspace.xml" />
     <Content Include="bin\BugWorkarounds.dll" />
     <Content Include="bin\BugWorkarounds.pdb" />
     <Content Include="bin\IronRuby.dll" />

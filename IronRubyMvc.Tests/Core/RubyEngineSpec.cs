@@ -48,14 +48,14 @@ namespace System.Web.Mvc.IronRuby.Tests.Core
         [Observation]
         public void it_should_have_a_global_routes_variable()
         {
-            _engine.Context.GetGlobalVariable("routes").ShouldNotBeNull();
-//            _engine.GetGlobalVariable<object>("routes").ShouldNotBeNull();
+//            _engine.Context.GetGlobalVariable("routes").ShouldNotBeNull();
+            _engine.GetGlobalVariable<object>("routes").ShouldNotBeNull();
         }
 
         [Observation]
         public void routes_should_be_a_ruby_route_collection()
         {
-            _engine.Context.GetGlobalVariable("routes").ShouldBeAnInstanceOf<RubyRoutes>();
+            _engine.GetGlobalVariable<object>("routes").ShouldBeAnInstanceOf<RubyRoutes>();
         }
 
         [Observation]
@@ -136,7 +136,6 @@ namespace System.Web.Mvc.IronRuby.Tests.Core
     public class when_asked_for_an_existing_ruby_class : with_an_engine_initialized
     {
         private RubyClass _class;
-
 
         protected override void Because()
         {
