@@ -55,7 +55,7 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
 
         protected override RubyController CreateSut()
         {
-            var controller = _rubyEngine.CreateInstance<RubyController>(_rubyClass);
+            var controller = (RubyController)_rubyEngine.CreateInstance(_rubyClass);
             controller.InternalInitialize(new ControllerConfiguration { Context = _requestContext, Engine = _rubyEngine, RubyClass = _rubyClass });
 
             controller.ViewData().Add("test","testing");
@@ -88,6 +88,7 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
         protected override void EstablishContext()
         {
             base.EstablishContext();
+            
             var form = new NameValueCollection
                            {
                                {"a_form_field", "a form value"}

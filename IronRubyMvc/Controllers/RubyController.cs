@@ -60,7 +60,7 @@ namespace System.Web.Mvc.IronRuby.Controllers
             
         }
 
-        internal void InternalInitialize(ControllerConfiguration config)
+        public void InternalInitialize(ControllerConfiguration config)
         {
             Initialize(config.Context);
             _engine = config.Engine;

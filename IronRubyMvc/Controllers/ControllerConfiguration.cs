@@ -8,7 +8,7 @@ using IronRuby.Builtins;
 
 namespace System.Web.Mvc.IronRuby.Controllers
 {
-    internal class ControllerConfiguration
+    public class ControllerConfiguration
     {
         public RequestContext Context { get; set; }
         public RubyClass RubyClass { get; set; }
