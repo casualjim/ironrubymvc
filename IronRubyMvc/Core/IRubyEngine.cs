@@ -62,64 +62,11 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <summary>
         /// Executes the file.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="scope">The scope.</param>
-        /// <param name="throwIfNotExist">if set to <c>true</c> [throw if not exist].</param>
-        /// <returns></returns>
-        object ExecuteFile(string path, ScriptScope scope, bool throwIfNotExist);
-
-        /// <summary>
-        /// Executes the file.
-        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="path">The path.</param>
         /// <param name="throwIfNotExist">if set to <c>true</c> [throw if not exist].</param>
         /// <returns></returns>
-        T ExecuteFile<T>(string path, bool throwIfNotExist);
-
-
-        /// <summary>
-        /// Executes the file.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        T ExecuteFile<T>(string path);
-
-        /// <summary>
-        /// Executes the script.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="script">The script.</param>
-        /// <returns></returns>
-        T ExecuteScript<T>(string script);
-
-        /// <summary>
-        /// Executes the script.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="script">The script.</param>
-        /// <param name="scope">The scope.</param>
-        /// <returns></returns>
-        T ExecuteScript<T>(string script, ScriptScope scope);
-
-        /// <summary>
-        /// Executes the file.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path">The path.</param>
-        /// <param name="scope">The scope.</param>
-        /// <param name="throwIfNotExist">if set to <c>true</c> [throw if not exist].</param>
-        /// <returns></returns>
-        T ExecuteFile<T>(string path, ScriptScope scope, bool throwIfNotExist);
-
-
-        /// <summary>
-        /// Executes the file.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        object ExecuteFile(string path);
+        object ExecuteFile(string path, bool throwIfNotExist);
 
         /// <summary>
         /// Defines the read only global variable.
@@ -141,7 +88,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="rubyClass">The ruby class.</param>
         /// <returns></returns>
-        T CreateInstance<T>(RubyClass rubyClass);
+        object CreateInstance(RubyClass rubyClass);
 
         /// <summary>
         /// Gets the ruby class.
@@ -153,11 +100,9 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <summary>
         /// Gets the global variable.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        T GetGlobalVariable<T>(string name);
+        object GetGlobalVariable(string name);
 
         /// <summary>
         /// Loads the assemblies.

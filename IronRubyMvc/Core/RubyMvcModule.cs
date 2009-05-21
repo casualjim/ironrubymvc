@@ -63,7 +63,7 @@ namespace System.Web.Mvc.IronRuby.Core
         {
             if (_mvcApplication.IsNotNull()) return false;
 
-            _mvcApplication = _rubyEngine.ExecuteFile<MvcApplication>("~/mvc_application.rb",  false);
+            _mvcApplication = (MvcApplication)_rubyEngine.ExecuteFile("~/mvc_application.rb", false);
             if(_mvcApplication.IsNotNull()) _mvcApplication.Start(context, EventArgs.Empty);
             return true;
         }

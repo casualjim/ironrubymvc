@@ -29,7 +29,7 @@ describe "RubyEngine" do
       @path_provider.when_receiving(:file_exists).return(true)
       @path_provider.when_receiving(:open).return(System::IO::MemoryStream.new(System::Byte[].new(0)))
       @script_engine = IRCORE::RubyEngine.initialize_iron_ruby_mvc @path_provider, "~/routes.rb"
-      @routes = @script_engine.method(:get_global_variable).of(Object).call("routes")
+      @routes = @script_engine.method(:get_global_variable).call("routes")
     end
 
     it "should have a global routes variable" do
@@ -60,7 +60,7 @@ describe "RubyEngine" do
     end
 
     it "should have not a global routes variable" do
-      lambda { @script_engine.method(:get_global_variable).of(Object).call("routes") }.should.raise?(System::MissingMemberException)
+      lambda { @script_engine.method(:get_global_variable).call("routes") }.should.raise?(System::MissingMemberException)
     end
 
   end

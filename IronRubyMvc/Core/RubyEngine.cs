@@ -83,9 +83,9 @@ namespace System.Web.Mvc.IronRuby.Core
             if (Runtime.Globals.ContainsVariable(className)) Runtime.Globals.RemoveVariable(className);
         }
 
-        public T CreateInstance<T>(RubyClass rubyClass)
+        public object CreateInstance(RubyClass rubyClass)
         {
-            return (T) Operations.CreateInstance(rubyClass);
+            return Operations.CreateInstance(rubyClass);
         }
 
         public void ExecuteInScope(Action<ScriptScope> block)
@@ -165,10 +165,10 @@ namespace System.Web.Mvc.IronRuby.Core
             return Engine.Execute(script, scope ?? CurrentScope);
         }
 
-        public object ExecuteFile(string path, ScriptScope scope, bool throwIfNotExist)
+
+        public object ExecuteFile(string path, bool throwIfNotExist)
         {
             path.EnsureArgumentNotNull("path");
-            scope.EnsureArgumentNotNull("scope");
 
             if (throwIfNotExist && !PathProvider.FileExists(path)) throw new FileNotFoundException("Can't find the file", path);
             
@@ -176,39 +176,9 @@ namespace System.Web.Mvc.IronRuby.Core
 
             var source = Engine.CreateScriptSourceFromFile(path); 
 
-            return source.Execute(scope);
+            return source.Execute(CurrentScope);
         }
 
-        public T ExecuteFile<T>(string path)
-        {
-            return (T) ExecuteFile(path);
-        }
-
-        public T ExecuteFile<T>(string path, bool throwIfNotExist)
-        {
-            return (T)ExecuteFile(path, CurrentScope, throwIfNotExist);
-        }
-
-
-        public T ExecuteScript<T>(string script)
-        {
-            return (T) ExecuteScript(script);
-        }
-
-        public T ExecuteScript<T>(string script, ScriptScope scope)
-        {
-            return (T) ExecuteScript(script, scope);
-        }
-
-        public T ExecuteFile<T>(string path, ScriptScope scope, bool throwIfNotExist)
-        {
-            return (T) ExecuteFile(path, scope, throwIfNotExist);
-        }
-
-        public object ExecuteFile(string path)
-        {
-            return Engine.ExecuteFile(path, CurrentScope);
-        }
 
         /// <summary>
         /// Defines the read only global variable.
@@ -227,7 +197,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <returns></returns>
         public RubyClass GetRubyClass(string className)
         {
-            var klass = GetGlobalVariable<RubyClass>(className);
+            var klass = (RubyClass)GetGlobalVariable(className);
             return klass;
         }
 
@@ -237,10 +207,9 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        public T GetGlobalVariable<T>(string name)
+        public object GetGlobalVariable(string name)
         {
-            return Runtime.Globals.GetVariable<T>(name);
+            return Runtime.Globals.GetVariable<object>(name);
         }
 
         /// <summary>

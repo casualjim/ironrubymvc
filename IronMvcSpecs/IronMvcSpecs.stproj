@@ -51,6 +51,7 @@
     <Ruby Include="extensions\ienumerable_extensions_spec.rb" />
     <Ruby Include="extensions\object_extensions_spec.rb" />
     <Ruby Include="extensions\string_extensions_spec.rb" />
+    <Ruby Include="irb_init.rb" />
     <Ruby Include="lib\amok.rb" />
     <Ruby Include="Rakefile.rb" />
   </ItemGroup>
