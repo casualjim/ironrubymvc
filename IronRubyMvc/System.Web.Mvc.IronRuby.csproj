@@ -98,6 +98,7 @@
     <Compile Include="Controllers\RubyActionMethodSelector.cs" />
     <Compile Include="Controllers\RubyActionSelector.cs" />
     <Compile Include="Controllers\RubyModelBinders.cs" />
+    <Compile Include="Controllers\RubyParams.cs" />
     <Compile Include="Core\AssemblyStreamContentProvider.cs" />
     <Compile Include="Core\IPathProvider.cs" />
     <Compile Include="Core\IRubyEngine.cs" />
@@ -111,9 +112,6 @@
     <Compile Include="Core\MvcScriptHost.cs" />
     <Compile Include="Core\PathProviderPAL.cs" />
     <Compile Include="Core\RubyMvcApplication.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Core\RubyMvcModule.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\RubyRoutes.cs" />

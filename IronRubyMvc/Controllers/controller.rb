@@ -3,8 +3,8 @@ def debugger
 end
 
 module System
-
-  module Web 
+	
+	module Web 
     class HttpRequestBase
 
       def post?
@@ -27,6 +27,47 @@ module System
         self.http_method.to_s.downcase.to_sym == :head
       end
     end
+		
+		module Mvc
+			
+			module IronRuby
+				
+				module Controllers
+					
+					class RubyParams
+						
+						def to_hash_tree(prefix)
+							self.class.hashify self, prefix
+						end
+						
+						private
+						
+						def self.hashify(source, prefix="", target={})
+							pf, regex, subset = prefix, nil, source
+							unless pf.empty?
+								regex = /^#{prefix}\./u
+								subset = subset.select { |pair| pair.key =~ regex }
+							end
+							subset.each do |pair|
+								key = regex.nil? ? pair.key.to_s : pair.key.to_s.gsub(regex, '')
+								splits = key.split('.')
+								if splits.size > 1
+									suffix = splits.first									
+									target[suffix.to_sym] = hashify(subset, pf.empty? ? "#{suffix}" : "#{prefix}.#{suffix}")
+								else
+									target[key.to_sym] = pair.value
+								end
+							end
+							target
+						end				
+						
+					end
+					
+				end
+				
+			end
+			
+		end
   end
   
   class Object

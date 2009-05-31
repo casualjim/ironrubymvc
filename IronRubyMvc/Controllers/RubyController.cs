@@ -107,7 +107,25 @@ namespace System.Web.Mvc.IronRuby.Controllers
         }
 
         [NonAction]
+        public ViewResult View(SymbolId viewName)
+        {
+            return View(viewName, null /* masterName */, null /* model */);
+        }
+
+        [NonAction]
         public new ViewResult View(string viewName, string masterName)
+        {
+            return View(viewName, masterName, null /* model */);
+        }
+
+        [NonAction]
+        public ViewResult View(SymbolId viewName, SymbolId masterName)
+        {
+            return View(viewName, masterName, null /* model */);
+        }
+
+        [NonAction]
+        public ViewResult View(string viewName, SymbolId masterName)
         {
             return View(viewName, masterName, null /* model */);
         }
@@ -118,6 +136,31 @@ namespace System.Web.Mvc.IronRuby.Controllers
             return View(viewName, null /* masterName */, model);
         }
 
+        [NonAction]
+        public ViewResult View(SymbolId viewName, object model)
+        {
+            return View(viewName, null /* masterName */, model);
+        }
+
+        [NonAction]
+        public ViewResult View(SymbolId viewName, string masterName, object model)
+        {
+            return View(viewName.ToString(), masterName, model);
+        }
+
+        [NonAction]
+        public ViewResult View(SymbolId viewName, SymbolId masterName, object model)
+        {
+            return View(viewName.ToString(), masterName.ToString(), model);
+        }
+        
+        [NonAction]
+        public ViewResult View(string viewName, SymbolId masterName, object model)
+        {
+            return View(viewName, masterName.ToString(), model);
+        }
+
+        [NonAction]
         public new ViewResult View(string viewName, string masterName, object model)
         {
             var vdd = new ViewDataDictionary();

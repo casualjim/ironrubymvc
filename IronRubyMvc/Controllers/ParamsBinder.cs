@@ -20,7 +20,7 @@ namespace System.Web.Mvc.IronRuby.Controllers
             controllerContext.EnsureArgumentNotNull("controllerContext");
             bindingContext.EnsureArgumentNotNull("bindingContext");
 
-            _params = (bindingContext.Model as IDictionary<SymbolId, object>) ?? new Dictionary<SymbolId, object>();
+            _params = (bindingContext.Model as IDictionary<SymbolId, object>) ?? new RubyParams();
             bindingContext.ValueProvider.ForEach(pair =>
                                                      {
                                                          bindingContext.ModelState.SetModelValue(pair.Key, pair.Value);

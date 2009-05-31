@@ -327,7 +327,7 @@ namespace System.Web.Mvc.IronRuby.Core
             var rubySetup = Ruby.CreateRubySetup();
             var runtimeSetup = new ScriptRuntimeSetup();
             runtimeSetup.LanguageSetups.Add(rubySetup);
-            runtimeSetup.DebugMode = true;
+            //runtimeSetup.DebugMode = true;
             //            runtimeSetup.HostType = typeof (MvcScriptHost);
 
             var runtime = Ruby.CreateRuntime(runtimeSetup);
