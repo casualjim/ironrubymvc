@@ -12,9 +12,7 @@ load_assembly 'BugWorkarounds'
 load_assembly 'IronRuby, Version=0.4.0.0, Culture=neutral, PublicKeyToken=null'
 load_assembly 'IronRuby.Libraries, Version=0.4.0.0, Culture=neutral, PublicKeyToken=null'
 
-include System::Web
-include System::Web::Routing
-include System::Web::Mvc
+
 include System::Collections::Generic
 include System::Collections::Specialized
 

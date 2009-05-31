@@ -277,28 +277,28 @@ module IronRubyMvc
       
     end
     
-    class DefaultModelBinder
-      def initialize(target, values)
-        @target = target
-        @values = values
-      end
-      
-      def bind
-        @target
-      end
-      
-      def self.bind(target, values)
-        binder = DefaultModelBinder.new target, values
-        
-        binder.bind
-      end
-      
-      private
-      
-      def has_property?
-        target.get_type
-      end
-    end
+#    class DefaultModelBinder
+#      def initialize(target, values)
+#        @target = target
+#        @values = values
+#      end
+#      
+#      def bind
+#        @target
+#      end
+#      
+#      def self.bind(target, values)
+#        binder = DefaultModelBinder.new target, values
+#        
+#        binder.bind
+#      end
+#      
+#      private
+#      
+#      def has_property?
+#        target.get_type
+#      end
+#    end
     
     #module Controllers
     

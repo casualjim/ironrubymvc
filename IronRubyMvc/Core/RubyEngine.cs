@@ -22,27 +22,34 @@ using Microsoft.Scripting.Hosting;
 namespace System.Web.Mvc.IronRuby.Core
 {
     /// <summary>
-    /// A wrapper for ScriptEngine, Runtime and Context
+    /// A facade for ScriptEngine, Runtime and Context
     /// This class handles all the interaction with IronRuby
     /// </summary>
     public class RubyEngine : IRubyEngine
     {
+        private readonly string _routesPath;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RubyEngine"/> class.
         /// </summary>
         /// <param name="runtime">The runtime.</param>
         /// <param name="pathProvider">The VPP.</param>
-        public RubyEngine(ScriptRuntime runtime, IPathProvider pathProvider)
+        /// <param name="routesPath">the path to the routes file</param>
+        public RubyEngine(ScriptRuntime runtime, IPathProvider pathProvider, string routesPath)
         {
+            _routesPath = routesPath;
             Runtime = runtime;
             PathProvider = pathProvider;
             Initialize();
         }
 
         /// <summary>
-        /// Gets the runtime.
+        /// Initializes a new instance of the <see cref="RubyEngine"/> class.
         /// </summary>
-        /// <value>The runtime.</value>
+        /// <param name="runtime">The runtime.</param>
+        /// <param name="pathProvider">The VPP.</param>
+        public RubyEngine(ScriptRuntime runtime, IPathProvider pathProvider):this(runtime, pathProvider, "~/routes.rb"){}
+
         private ScriptRuntime Runtime { get; set; }
 
         /// <summary>
@@ -187,7 +194,8 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="value">The value.</param>
         public void DefineGlobalVariable(string variableName, object value)
         {
-            Runtime.Globals.SetVariable(variableName, value);
+            
+            Context.SetGlobalVariable(null, variableName, value);
         }
 
         /// <summary>
@@ -264,6 +272,7 @@ namespace System.Web.Mvc.IronRuby.Core
             AddLoadPaths();
             DefineGlobalVariable(Constants.ScriptRuntimeVariable, Engine);
             RequireControllerFile();
+            ProcessRubyRoutes();
         }
 
         private void RequireControllerFile()
@@ -281,8 +290,16 @@ namespace System.Web.Mvc.IronRuby.Core
             var modelsDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Models);
             var filtersDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Filters);
             var helpersDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Helpers);
-
+            
             Context.Loader.SetLoadPaths(new[] {PathProvider.ApplicationPhysicalPath, controllersDir, modelsDir, filtersDir, helpersDir});
+        }
+
+        private void ProcessRubyRoutes()
+        {
+            if (!PathProvider.FileExists(_routesPath)) return;
+            var routeCollection = new RubyRoutes(RouteTable.Routes);
+            DefineGlobalVariable("routes", routeCollection);
+            RequireRubyFile(_routesPath, ReaderType.File);
         }
 
 
@@ -293,8 +310,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="routesPath">The routes path.</param>
         public static RubyEngine InitializeIronRubyMvc(IPathProvider pathProvider, string routesPath)
         {
-            var engine = InitializeIronRuby(pathProvider);
-            ProcessRubyRoutes(engine, pathProvider, routesPath);
+            var engine = InitializeIronRuby(pathProvider, routesPath);
             IntializeMvc(pathProvider, engine);
             return engine;
         }
@@ -306,24 +322,18 @@ namespace System.Web.Mvc.IronRuby.Core
             ViewEngines.Engines.Add(new RubyViewEngine(engine));
         }
 
-        private static RubyEngine InitializeIronRuby(IPathProvider vpp)
+        private static RubyEngine InitializeIronRuby(IPathProvider vpp, string routesPath)
         {
             var rubySetup = Ruby.CreateRubySetup();
             var runtimeSetup = new ScriptRuntimeSetup();
             runtimeSetup.LanguageSetups.Add(rubySetup);
             runtimeSetup.DebugMode = true;
-//            runtimeSetup.HostType = typeof (MvcScriptHost);
+            //            runtimeSetup.HostType = typeof (MvcScriptHost);
 
             var runtime = Ruby.CreateRuntime(runtimeSetup);
-            return new RubyEngine(runtime, vpp);
+            return new RubyEngine(runtime, vpp, routesPath);
         }
 
-        private static void ProcessRubyRoutes(IRubyEngine engine, IPathProvider vpp, string routesPath)
-        {
-            if (!vpp.FileExists(routesPath)) return;
-            var routeCollection = new RubyRoutes(RouteTable.Routes);
-            engine.DefineGlobalVariable("routes", routeCollection);
-            engine.RequireRubyFile(routesPath, ReaderType.File);
-        }
+        
     }
 }

@@ -145,25 +145,22 @@ describe "RubyController" do
 
   end
 
-#  describe "when asked to execute an action" do
-#
-#    before do
-#      form, querystring = NameValueCollection.new, NameValueCollection.new
-#      @http_context.request.when_receiving(:form).return(form)
-#      @http_context.request.when_receiving(:query_string).return(querystring)
-#      @http_context.session.when_receiving(:get_Item).return({})
-#    end
-#
-#    it "should not raise any errors" do
-#      controller = @controller
-#      request_context = @request_context
-#      debugger
-#      puts "\ncontroller: #{controller}, context: #{request_context}, result: #{controller.execute request_context}"
-#      func = lambda { |*args| controller.execute request_context }
-#      puts "func result: #{func.call}"
-#      func.should.not.raise
-#    end
-#  end
+  describe "when asked to execute an action" do
+
+    before do
+      form, querystring = NameValueCollection.new, NameValueCollection.new
+      @http_context.request.when_receiving(:form).return(form)
+      @http_context.request.when_receiving(:query_string).return(querystring)
+      @http_context.session.when_receiving(:[]).return({})
+    end
+
+    it "should not raise any errors" do
+      controller = @controller
+      request_context = @request_context
+
+      lambda { |*args| controller.execute request_context }.should.not.raise
+    end
+  end
 
   shared "view context" do
     it "should return a view" do
