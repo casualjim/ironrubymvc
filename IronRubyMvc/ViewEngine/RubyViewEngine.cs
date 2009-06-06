@@ -129,7 +129,7 @@ namespace System.Web.Mvc.IronRuby.ViewEngine
             if (locations == null || locations.Length == 0)
             {
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentUICulture,
-                    "Property cannot be null or empty.", locationsPropertyName));
+                    "Property: {0} cannot be null or empty.", locationsPropertyName));
             }
 
             bool nameRepresentsPath = IsSpecificPath(name);

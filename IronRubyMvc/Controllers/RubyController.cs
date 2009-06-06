@@ -106,11 +106,11 @@ namespace System.Web.Mvc.IronRuby.Controllers
             return View(viewName, null /* masterName */, null /* model */);
         }
 
-        [NonAction]
-        public ViewResult View(SymbolId viewName)
-        {
-            return View(viewName, null /* masterName */, null /* model */);
-        }
+//        [NonAction]
+//        public ViewResult View(SymbolId viewName)
+//        {
+//            return View(viewName, null /* masterName */, null /* model */);
+//        }
 
         [NonAction]
         public new ViewResult View(string viewName, string masterName)
@@ -118,48 +118,48 @@ namespace System.Web.Mvc.IronRuby.Controllers
             return View(viewName, masterName, null /* model */);
         }
 
-        [NonAction]
-        public ViewResult View(SymbolId viewName, SymbolId masterName)
-        {
-            return View(viewName, masterName, null /* model */);
-        }
+//        [NonAction]
+//        public ViewResult View(SymbolId viewName, SymbolId masterName)
+//        {
+//            return View(viewName, masterName, null /* model */);
+//        }
 
-        [NonAction]
-        public ViewResult View(string viewName, SymbolId masterName)
-        {
-            return View(viewName, masterName, null /* model */);
-        }
-
+//        [NonAction]
+//        public ViewResult View(string viewName, SymbolId masterName)
+//        {
+//            return View(viewName, masterName, null /* model */);
+//        }
+//
         [NonAction]
         public new ViewResult View(string viewName, object model)
         {
             return View(viewName, null /* masterName */, model);
         }
 
-        [NonAction]
-        public ViewResult View(SymbolId viewName, object model)
-        {
-            return View(viewName, null /* masterName */, model);
-        }
-
-        [NonAction]
-        public ViewResult View(SymbolId viewName, string masterName, object model)
-        {
-            return View(viewName.ToString(), masterName, model);
-        }
-
-        [NonAction]
-        public ViewResult View(SymbolId viewName, SymbolId masterName, object model)
-        {
-            return View(viewName.ToString(), masterName.ToString(), model);
-        }
+//        [NonAction]
+//        public ViewResult View(SymbolId viewName, object model)
+//        {
+//            return View(viewName, null /* masterName */, model);
+//        }
+//
+//        [NonAction]
+//        public ViewResult View(SymbolId viewName, string masterName, object model)
+//        {
+//            return View(viewName.ToString(), masterName, model);
+//        }
+//
+//        [NonAction]
+//        public ViewResult View(SymbolId viewName, SymbolId masterName, object model)
+//        {
+//            return View(viewName.ToString(), masterName.ToString(), model);
+//        }
         
-        [NonAction]
-        public ViewResult View(string viewName, SymbolId masterName, object model)
-        {
-            return View(viewName, masterName.ToString(), model);
-        }
-
+//        [NonAction]
+//        public ViewResult View(string viewName, SymbolId masterName, object model)
+//        {
+//            return View(viewName, masterName.ToString(), model);
+//        }
+//
         [NonAction]
         public new ViewResult View(string viewName, string masterName, object model)
         {
@@ -176,6 +176,109 @@ namespace System.Web.Mvc.IronRuby.Controllers
 
             return new ViewResult {ViewName = viewName, MasterName = masterName, ViewData = vdd, TempData = TempData};
         }
+
+//        public new virtual bool TryUpdateModel<TModel>(TModel model) where TModel : class
+//        {
+//            return TryUpdateModel(model, null, null, null, ValueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix) where TModel : class
+//        {
+//            return TryUpdateModel(model, prefix, null, null, ValueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string[] includeProperties) where TModel : class
+//        {
+//            return TryUpdateModel(model, null, includeProperties, null, ValueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties) where TModel : class
+//        {
+//            return TryUpdateModel(model, prefix, includeProperties, null, ValueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) where TModel : class
+//        {
+//            return TryUpdateModel(model, prefix, includeProperties, excludeProperties, ValueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            return TryUpdateModel(model, null, null, null, valueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            return TryUpdateModel(model, prefix, null, null, valueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            return TryUpdateModel(model, null, includeProperties, null, valueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            return TryUpdateModel(model, prefix, includeProperties, null, valueProvider);
+//        }
+//
+//        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            return base.TryUpdateModel(model, prefix, includeProperties, excludeProperties, valueProvider);
+//        }
+//
+//        public new virtual void UpdateModel<TModel>(TModel model) where TModel : class
+//        {
+//            UpdateModel(model, null, null, null, ValueProvider);
+//        }
+//
+//        public new virtual void UpdateModel<TModel>(TModel model, string prefix) where TModel : class
+//        {
+//            UpdateModel(model, prefix, null, null, ValueProvider);
+//        }
+//
+//        public new virtual void UpdateModel<TModel>(TModel model, string[] includeProperties) where TModel : class
+//        {
+//            UpdateModel(model, null, includeProperties, null, ValueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties) where TModel : class
+//        {
+//            UpdateModel(model, prefix, includeProperties, null, ValueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) where TModel : class
+//        {
+//            UpdateModel(model, prefix, includeProperties, excludeProperties, ValueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            UpdateModel(model, null, null, null, valueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            UpdateModel(model, prefix, null, null, valueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            UpdateModel(model, null, includeProperties, null, valueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            UpdateModel(model, prefix, includeProperties, null, valueProvider);
+//        }
+//
+//        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+//        {
+//            base.UpdateModel(model, prefix, includeProperties,excludeProperties,valueProvider);
+//        }
+
+       
+
 
         [NonAction]
         public new IDictionary ViewData()

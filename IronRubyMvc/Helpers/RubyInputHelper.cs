@@ -97,6 +97,9 @@ namespace System.Web.Mvc.IronRuby.Helpers
         {
             //Yeah, I know this is sooo wrong, but still.
             name = name.Replace("_", "");
+            if (value == null)
+                value = string.Empty;
+
             return _helper.TextBox(name, value.ToString());
         }
     }

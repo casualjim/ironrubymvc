@@ -1,5 +1,4 @@
 require "HomeModel"
-
 require 'MyFilter'
 
 #class HomeModel
@@ -25,7 +24,7 @@ class HomeController < Controller
   accept_verbs :only_post, :post
   
   def index
-    view(nil, 'layout', HomeModel.new)
+    view('index', 'layout', HomeModel.new)
   end
   
   def my_method
