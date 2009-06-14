@@ -84,12 +84,18 @@ namespace System.Web.Mvc.IronRuby.Extensions
                                        var li = new SelectListItem();
                                        hash.ForEach((key, value) =>
                                                         {
-                                                            if (key.ToString() == "text")
-                                                                li.Text = value.ToString();
-                                                            if (key.ToString() == "value")
-                                                                li.Value = value.ToString();
-                                                            if (key.ToString() == "selected")
-                                                                li.Selected = (bool) value;
+                                                            switch(key.ToString().ToUpperInvariant())
+                                                            {
+                                                                case "TEXT":
+                                                                    li.Text = value.ToString();
+                                                                    break;
+                                                                case "VALUE":
+                                                                    li.Value = value.ToString();
+                                                                    break;
+                                                                case "SELECTED":
+                                                                    li.Selected = (bool) value;
+                                                                    break;
+                                                            }
                                                         });
                                        result.Add(li);
                                    });

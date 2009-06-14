@@ -19,5 +19,7 @@ namespace System.Web.Mvc.IronRuby.Core
         public const string Models = "Models";
         public const string RubycontrollerFile = "System.Web.Mvc.IronRuby.Controllers.controller.rb";
         public const string ScriptRuntimeVariable = "script_runtime";
+        public const string Bin = "bin";
+        public const string Lib = "lib";
     }
 }

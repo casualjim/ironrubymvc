@@ -44,8 +44,8 @@ describe "StringExtensions" do
   describe "when asking to format a string" do 
     
     it "should return a properly formatted string" do
-      expected = "This is the 1 and only Format test at #{System::DateTime.now.to_short_date_string}".to_clr_string
-      actual = StringExtensions.formatted_with("This is the {0} and only {1} test at {2}".to_clr_string, 1, "Format", System::DateTime.now.to_short_date_string)
+      expected = "This is the 1 and only Format test at #{Time.now.strftime("%x")}".to_clr_string
+      actual = StringExtensions.formatted_with("This is the {0} and only {1} test at {2}".to_clr_string, 1, "Format", Time.now.strftime("%x"))
       
       expected.should == actual
     end

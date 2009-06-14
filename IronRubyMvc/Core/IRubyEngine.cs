@@ -66,7 +66,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="path">The path.</param>
         /// <param name="throwIfNotExist">if set to <c>true</c> [throw if not exist].</param>
         /// <returns></returns>
-        object ExecuteFile(string path, bool throwIfNotExist);
+        void ExecuteFile(string path, bool throwIfNotExist);
 
         /// <summary>
         /// Defines the read only global variable.

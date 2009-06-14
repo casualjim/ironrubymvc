@@ -97,13 +97,16 @@ namespace System.Web.Mvc.IronRuby.Core
 
         public object CreateInstance(RubyClass rubyClass)
         {
-            return Operations.CreateInstance(rubyClass);
+            return  HandleError(() => Operations.CreateInstance(rubyClass));
         }
 
         public void ExecuteInScope(Action<ScriptScope> block)
         {
-            var scope = Engine.CreateScope();
-            block(scope);
+            HandleError(() =>
+                            {
+                                var scope = Engine.CreateScope();
+                                block(scope);
+                            });
         }
 
         /// <summary>
@@ -115,7 +118,43 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <returns></returns>
         public object CallMethod(object receiver, string message, params object[] args)
         {
-            return Operations.InvokeMember(receiver, GetMethodName(receiver, message));
+            return HandleError(() => Operations.InvokeMember(receiver, GetMethodName(receiver, message)));
+           
+        }
+
+        private void HandleError(Action action)
+        {
+            try
+            {
+                action.Invoke();
+
+            }
+            catch (Exception exception)
+            {
+                var exceptionService = Engine.GetService<ExceptionOperations>();
+                string msg, typeName;
+                exceptionService.GetExceptionMessage(exception, out msg, out typeName);
+                var trace = exceptionService.FormatException(exception);
+                throw new RuntimeError(string.Format("{0} threw an error.{1}{2}{1}{1}Trace:{1}{3}",
+                    typeName, Environment.NewLine, msg, trace));
+            }
+        }
+
+        private object HandleError(Func<object> action)
+        {
+            try
+            {
+                return action.Invoke();
+
+            }
+            catch (Exception exception)
+            {
+                var exceptionService = Engine.GetService<ExceptionOperations>();
+                string msg, typeName;
+                exceptionService.GetExceptionMessage(exception, out msg, out typeName);
+                var trace = exceptionService.FormatException(exception);
+                throw new IronRubyMvcException(string.Format("{0}<br />{1}", msg, trace), trace, exception);
+            }
         }
 
         /// <summary>
@@ -163,7 +202,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <returns></returns>
         public object ExecuteScript(string script)
         {
-            return ExecuteScript(script, CurrentScope);
+            return  HandleError(() => ExecuteScript(script, CurrentScope));
         }
 
         /// <summary>
@@ -174,22 +213,20 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <returns></returns>
         public object ExecuteScript(string script, ScriptScope scope)
         {
-            return Engine.Execute(script, scope ?? CurrentScope);
+            return  HandleError(() => Engine.Execute(script, scope ?? CurrentScope));
         }
 
 
-        public object ExecuteFile(string path, bool throwIfNotExist)
+        public void ExecuteFile(string path, bool throwIfNotExist)
         {
             path.EnsureArgumentNotNull("path");
 
             if (throwIfNotExist && !PathProvider.FileExists(path))
                 throw new FileNotFoundException("Can't find the file", path);
 
-            if (!PathProvider.FileExists(path)) return null;
+            if (!PathProvider.FileExists(path)) return;
 
-            var source = Engine.CreateScriptSourceFromFile(path);
-
-            return source.Execute(CurrentScope);
+            HandleError(() => Engine.ExecuteFile(PathProvider.MapPath(path), CurrentScope));
         }
 
 
@@ -200,7 +237,7 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="value">The value.</param>
         public void DefineGlobalVariable(string variableName, object value)
         {
-
+            Runtime.Globals.SetVariable(variableName, value);
             Context.SetGlobalVariable(null, variableName, value);
         }
 
@@ -251,11 +288,21 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="readerType">Type of the reader.</param>
         public void RequireRubyFile(string path, ReaderType readerType)
         {
-            Engine.CreateScriptSource(readerType == ReaderType.File
-                                          ? (StreamContentProvider)
-                                            new VirtualPathStreamContentProvider(path, PathProvider)
-                                          : new AssemblyStreamContentProvider(path, typeof (IRubyEngine).Assembly), null,
-                                      Encoding.ASCII).Execute();
+            HandleError(() =>
+                            {
+                                if (readerType == ReaderType.File)
+                                {
+//                                    Engine.CreateScriptSource(new VirtualPathStreamContentProvider(path, PathProvider), null, Encoding.ASCII).
+//                                        Execute(CurrentScope);
+                                    ExecuteFile(path, true);
+                                }
+                                else
+                                {
+                                    Engine.CreateScriptSource(
+                                        new AssemblyStreamContentProvider(path, typeof (IRubyEngine).Assembly), null,
+                                        Encoding.ASCII).Execute();
+                                }
+                            });
         }
 
         #endregion
@@ -302,11 +349,13 @@ namespace System.Web.Mvc.IronRuby.Core
             var modelsDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Models);
             var filtersDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Filters);
             var helpersDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Helpers);
+            var libDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Lib);
+            var binDir = Path.Combine(PathProvider.ApplicationPhysicalPath, Constants.Bin);
 
             Context.Loader.SetLoadPaths(new[]
                                             {
                                                 PathProvider.ApplicationPhysicalPath, controllersDir, modelsDir, filtersDir
-                                                , helpersDir
+                                                , helpersDir, libDir, binDir
                                             });
         }
 
@@ -342,7 +391,7 @@ namespace System.Web.Mvc.IronRuby.Core
         private static RubyEngine InitializeIronRuby(IPathProvider vpp, string routesPath)
         {
             var runtimeSetup = new ScriptRuntimeSetup();
-            runtimeSetup.LanguageSetups.Add(Ruby.CreateRubySetup(su => su.InterpretedMode = true));
+            runtimeSetup.LanguageSetups.Add(Ruby.CreateRubySetup());
             
 #if DEBUG
             runtimeSetup.DebugMode = true;

@@ -86,7 +86,7 @@ describe "RubyController" do
   describe "when asked to redirect to route" do
 
     before do
-      @result = @controller.redirect_to_route "MyRoute" => "RouteValue"
+      @result = @controller.redirect_to_route({ "MyRoute" => "RouteValue" })
     end
 
     it "should return a result" do

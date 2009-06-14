@@ -224,8 +224,9 @@ module IronRubyMvc
                 end
                 
                 def action_filters
-                    @action_filters ||= {}
-                    @action_filters
+									@action_filters ||= {}
+                  return @action_filters unless superclass.respond_to? :action_filters
+									@action_filters.merge superclass.action_filters
                 end
                 
                 private
@@ -247,10 +248,11 @@ module IronRubyMvc
                 
                 def method_selector(name, selector)
                     key = name.to_s.to_sym
-                    method_selectors[key] ||= []
-                    method_selectors[key] << selector unless selector.nil?
-                    method_selectors[key].uniq!
-                    method_selectors[key]
+										@method_selectors ||= {}
+                    @method_selectors[key] ||= []
+                    @method_selectors[key] << selector unless selector.nil?
+                    @method_selectors[key].uniq!
+                    @method_selectors[key]
                 end
                 
                 def alias_action(name, act_name)
@@ -262,10 +264,11 @@ module IronRubyMvc
                 
                 def name_selector(name, selector)
                     key = name.to_s.to_sym
-                    name_selectors[key] ||= []
-                    name_selectors[key] << selector if block_given?
-                    name_selectors[key].uniq!
-                    name_selectors[key]
+                    @name_selectors ||= {}
+										@name_selectors[key] ||= []
+                    @name_selectors[key] << selector if block_given?
+                    @name_selectors[key].uniq!
+                    @name_selectors[key]
                 end
                 
                 def non_action(name)
@@ -274,13 +277,15 @@ module IronRubyMvc
                 end
                 
                 def name_selectors
-                    @name_selectors ||= {}          
-                    @name_selectors
+                  @name_selectors = {}
+									return @name_selectors unless superclass.respond_to? :name_selectors
+									@name_selectors.merge superclass.name_selectors 
                 end
                 
                 def method_selectors
-                    @method_selectors ||= {}
-                    @method_selectors
+									@method_selectors = {}
+                  return @method_selectors unless superclass.respond_to? :method_selectors
+									@method_selectors.merge superclass.method_selectors
                 end
                 
             end

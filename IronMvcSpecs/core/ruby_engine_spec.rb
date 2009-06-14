@@ -27,7 +27,8 @@ describe "RubyEngine" do
       @path_provider = Caricature::Isolation.for(IRCORE::IPathProvider)
       @path_provider.when_receiving(:application_physical_path).return(System::Environment.current_directory)
       @path_provider.when_receiving(:file_exists).return(true)
-      @path_provider.when_receiving(:open).return(System::IO::MemoryStream.new(System::Byte[].new(0)))
+      #@path_provider.when_receiving(:open).return(System::IO::MemoryStream.new(System::Byte[].new(0)))
+      @path_provider.when_receiving(:map_path).return(".\\routes.rb")
       @script_engine = IRCORE::RubyEngine.initialize_iron_ruby_mvc @path_provider, "~/routes.rb"
       @routes = @script_engine.method(:get_global_variable).call("routes")
     end
