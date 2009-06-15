@@ -24,8 +24,7 @@ class HomeController < Controller
   accept_verbs :only_post, :post
   
   def index
-		hall
-    view('index', 'layout', HomeModel.new)
+		view('index', 'layout', HomeModel.new)
   end
   
   def my_method
