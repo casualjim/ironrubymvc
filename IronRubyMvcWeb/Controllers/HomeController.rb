@@ -24,7 +24,7 @@ class HomeController < Controller
   accept_verbs :only_post, :post
   
   def index
-		view('index', 'layout', HomeModel.new)
+		view '', 'layout', HomeModel.new
   end
   
   def my_method

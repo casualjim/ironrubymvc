@@ -97,7 +97,7 @@ namespace System.Web.Mvc.IronRuby.Core
 
         public object CreateInstance(RubyClass rubyClass)
         {
-            return  HandleError(() => Operations.CreateInstance(rubyClass));
+            return Operations.CreateInstance(rubyClass);
         }
 
         public void ExecuteInScope(Action<ScriptScope> block)
