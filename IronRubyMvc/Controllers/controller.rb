@@ -26,6 +26,11 @@ module System
       def head?
         self.http_method.to_s.downcase.to_sym == :head
       end
+			
+			def ajax?
+				System::Web::Mvc::AjaxRequestExtensions.is_ajax_request(self)
+			end
+			
     end
 		
     module Mvc

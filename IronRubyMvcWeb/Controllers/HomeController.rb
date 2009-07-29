@@ -24,18 +24,22 @@ class HomeController < Controller
   accept_verbs :only_post, :post
   
   def index
+		@ajax_val = request.ajax?.to_s
 		view '', 'layout', HomeModel.new
   end
   
   def my_method
-    view('index', 'layout', HomeModel.new)
+    @ajax_val = request.ajax?.to_s
+		view('index', 'layout', HomeModel.new)
   end
   
   def my_helper_method
+	@ajax_val = request.ajax?.to_s
     view('index', 'layout', HomeModel.new)
   end
   
   def only_post
+	@ajax_val = request.ajax?.to_s
     view('index', 'layout', HomeModel.new)
   end
   
