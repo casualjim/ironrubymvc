@@ -1,10 +1,10 @@
-extern alias clr3;
+//extern alias clr3;
 #region Usings
 
 using System.Web.Mvc.IronRuby.Core;
 using System.Web.Mvc.IronRuby.Extensions;
 using IronRuby.Builtins;
-using clr3::System.Linq;
+using System.Linq;
 #endregion
 
 namespace System.Web.Mvc.IronRuby.Controllers

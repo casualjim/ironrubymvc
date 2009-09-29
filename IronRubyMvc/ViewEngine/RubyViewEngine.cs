@@ -1,4 +1,4 @@
-﻿extern alias clr3;
+﻿//extern alias clr3;
 #region Usings
 
 using System.Collections.Generic;
@@ -111,7 +111,7 @@ namespace System.Web.Mvc.IronRuby.ViewEngine
 
             if (String.IsNullOrEmpty(viewPath) || (String.IsNullOrEmpty(masterPath) && !String.IsNullOrEmpty(masterName)))
             {
-                return new ViewEngineResult(clr3::System.Linq.Enumerable.Union(viewLocationsSearched, masterLocationsSearched));
+                return new ViewEngineResult(Linq.Enumerable.Union(viewLocationsSearched, masterLocationsSearched));
             }
 
             return new ViewEngineResult(CreateView(controllerContext, viewPath, masterPath), this);
