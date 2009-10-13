@@ -10,6 +10,7 @@ using Xunit;
 using Microsoft.Scripting.Hosting;
 using System.IO;
 using System.Text;
+using IronRuby.Builtins;
 
 namespace System.Web.Mvc.IronRuby.Tests.Controllers
 {
@@ -75,29 +76,32 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
     }
 
     [Concern(typeof(RubyControllerFactory))]
-    public class when_a_ruby_controller_needs_to_be_resolved : with_ironruby_mvc_and_routes_file
+    public abstract class with_ironruby_mvc_and_routes_and_controller_file : with_ironruby_mvc_and_routes_file
     {
-        private const string _controllerName = "My";
-        private string _mappedControllerPath = _controllerName + "Controller.rb";
-        private string _virtualControllerPath = @"~\Controllers\{0}Controller.rb"
-            .FormattedWith(_controllerName);
-        private IControllerFactory _controllerFactory;
-        private IController _controller;
+        protected const string _controllerName = "My";
+        protected const string _controllerClassName = _controllerName + "Controller";
+
+        protected string _mappedControllerPath = _controllerClassName + ".rb";
+        protected string _virtualControllerPath = @"~\Controllers\{0}.rb"
+            .FormattedWith(_controllerClassName);
+
+        protected IControllerFactory _controllerFactory;
+        protected IController _controller;
 
         protected override void EstablishContext()
         {
             base.EstablishContext();
 
-            createControllerFile(_mappedControllerPath, _controllerName);
+            createControllerFile(_mappedControllerPath, _controllerClassName);
 
             _pathProvider.WhenToldTo(pp => pp.FileExists(_virtualControllerPath)).Return(true);
             _pathProvider.WhenToldTo(pp => pp.MapPath(_virtualControllerPath)).Return(_mappedControllerPath);
         }
 
-        private void createControllerFile(string path, string controllerName)
+        protected virtual void createControllerFile(string path, string controllerName)
         {
             var script = new StringBuilder();
-            script.AppendLine("class {0}Controller < Controller".FormattedWith(controllerName));
+            script.AppendLine("class {0} < Controller".FormattedWith(controllerName));
             script.AppendLine("  def my_action");
             script.AppendLine("    $counter = $counter + 5");
             script.AppendLine("    \"Can't see ninjas\".to_clr_string");
@@ -107,11 +111,15 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
 
             CreateFile(path, value);
         }
+    }
 
+    
+    [Concern(typeof(RubyControllerFactory))]
+    public class when_a_ruby_controller_needs_to_be_resolved : with_ironruby_mvc_and_routes_and_controller_file
+    {
         protected override RubyControllerFactory CreateSut()
         {
-            _controllerFactory = ControllerBuilder.Current.GetControllerFactory();
-            return (RubyControllerFactory)_controllerFactory;
+            return (RubyControllerFactory)ControllerBuilder.Current.GetControllerFactory();
         }
 
         protected override void Because()
@@ -134,13 +142,13 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
         [Observation]
         public void should_have_the_correct_controller_name()
         {
-            (_controller as RubyController).ControllerName.ShouldBeEqualTo(_controllerName + "Controller");
+            (_controller as RubyController).ControllerName.ShouldBeEqualTo(_controllerName);
         }
 
         [Observation]
         public void should_have_the_correct_controller_class_name()
         {
-            (_controller as RubyController).ControllerClassName.ShouldBeEqualTo(_controllerName + "Controller");
+            (_controller as RubyController).ControllerClassName.ShouldBeEqualTo(_controllerClassName);
         }
 
         //[Observation]
@@ -149,12 +157,70 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
         //    _rubyEngine.WasToldTo(eng => eng.GetRubyClass(_controllerName)).OnlyOnce();
         //}
 
-        [Observation]
-        public void should_have_called_the_inner_controller_factory()
+        //[Observation]
+        //public void should_have_called_the_inner_controller_factory()
+        //{
+        //    _controllerFactory.WasToldTo(factory => factory.CreateController(_requestContext, _controllerName)).OnlyOnce();
+        //}
+    }
+
+    [Concern(typeof(RubyControllerFactory))]
+    public class when_a_ruby_controller_was_resolved_twice : with_ironruby_mvc_and_routes_and_controller_file
+    {
+        private const string methodToFilter = "index";
+
+        private int actionFiltersCountFirst;
+        private int actionFiltersCountSecond;
+
+        protected override void createControllerFile(string path, string controllerName)
         {
-            _controllerFactory.WasToldTo(factory => factory.CreateController(_requestContext, _controllerName)).OnlyOnce();
+            var script = new StringBuilder();
+            script.AppendLine("class {0} < Controller".FormattedWith(controllerName));
+            script.AppendLine("");
+            script.AppendLine("  before_action :index do |context|");
+            script.AppendLine("    context.request_context.http_context.response.write(\"Hello world<br />\")");
+            script.AppendLine("  end");
+            script.AppendLine("");
+            script.AppendLine("  def {0}".FormattedWith(methodToFilter));
+            script.AppendLine("    $counter = $counter + 5");
+            script.AppendLine("    \"Can't see ninjas\".to_clr_string");
+            script.AppendLine("  end");
+            script.AppendLine("end");
+            string value = script.ToString();
+
+            CreateFile(path, value);
+        }
+
+        protected override RubyControllerFactory CreateSut()
+        {
+            return (RubyControllerFactory) ControllerBuilder.Current.GetControllerFactory();
+        }
+
+        protected override void Because()
+        {
+            _controller = Sut.CreateController(_requestContext, _controllerName);
+            actionFiltersCountFirst = getActionFiltersCount(_controller);
+            _controller = Sut.CreateController(_requestContext, _controllerName);
+            actionFiltersCountSecond = getActionFiltersCount(_controller);
+        }
+
+        private int getActionFiltersCount(IController _controller)
+        {
+            var rubyType = ((RubyController)_controller).RubyType;
+            var controllerFilters = (Hash)_rubyEngine.CallMethod(rubyType, "action_filters");
+
+            int count = 0;
+            controllerFilters.ToActionFilters(methodToFilter).ForEach(action => count++);
+            return count;
+        }
+
+        [Observation]
+        public void action_filters_count_should_be_equal()
+        {
+            actionFiltersCountSecond.ShouldBeEqualTo(actionFiltersCountFirst);
         }
     }
+
 
 
 //    [Concern(typeof(RubyControllerFactory))]
