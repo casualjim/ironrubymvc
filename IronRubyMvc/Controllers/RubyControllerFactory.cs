@@ -62,7 +62,7 @@ namespace System.Web.Mvc.IronRuby.Controllers
             var controllerFilePath = GetControllerFilePath(controllerName);
             var controllerClassName = GetControllerClassName(controllerName);
 
-            _engine.RemoveClassFromGlobals(controllerClassName);
+//_engine.RemoveClassFromGlobals(controllerClassName);
 
             if (controllerFilePath.IsNullOrBlank())
                 return null;
