@@ -55,6 +55,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dependencies\IronRuby.Libraries.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=0.9.6.20, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dependencies\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Scripting, Version=0.9.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dependencies\Microsoft.Scripting.dll</HintPath>
@@ -66,15 +70,15 @@
     </Reference>
     <Reference Include="Moq, Version=2.6.1014.1, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dependencies\Moq.dll</HintPath>
+      <HintPath>..\dependencies\xunit\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Moq.Contrib, Version=0.1.3333.20586, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dependencies\Moq.Contrib.dll</HintPath>
+      <HintPath>..\dependencies\xunit\Moq.Contrib.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks, Version=3.5.0.1337, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dependencies\Rhino.Mocks.dll</HintPath>
+      <HintPath>..\dependencies\xunit\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -93,11 +97,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="xunit, Version=1.1.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dependencies\xunit.dll</HintPath>
+      <HintPath>..\dependencies\xunit\xunit.dll</HintPath>
     </Reference>
     <Reference Include="xunit.bddextensions, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dependencies\xunit.bddextensions.dll</HintPath>
+      <HintPath>..\dependencies\xunit\xunit.bddextensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,6 @@
 using System;
 using System.Web.Mvc.IronRuby.Extensions;
 using System.Web.Mvc.IronRuby.ViewEngine;
-using System.Web.Mvc.IronRuby.ViewEngine;
 using Xunit;
 
 #endregion

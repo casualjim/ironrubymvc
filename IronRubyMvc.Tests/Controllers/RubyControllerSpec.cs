@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.IronRuby.Controllers;
 using System.Web.Routing;
 using IronRuby.Builtins;
-using System.Web.Mvc.IronRuby.Controllers;
 using System.Web.Mvc.IronRuby.Extensions;
 using Microsoft.Scripting;
 using Moq.Mvc;

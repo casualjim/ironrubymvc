@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Mvc.IronRuby.Core;
 using System.Web.Routing;
-using System.Web.Mvc.IronRuby.Core;
 using System.Web.Mvc.IronRuby.Extensions;
 using IronRuby.Builtins;
 using Xunit;

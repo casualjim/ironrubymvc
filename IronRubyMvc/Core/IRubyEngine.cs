@@ -91,6 +91,14 @@ namespace System.Web.Mvc.IronRuby.Core
         object CreateInstance(RubyClass rubyClass);
 
         /// <summary>
+        /// Creates an typed instance of a ruby class.
+        /// </summary>
+        /// <typeparam name="T">Type of global instance</typeparam>
+        /// <param name="rubyClass">The ruby class</param>
+        /// <returns></returns>
+        T CreateInstance<T>(RubyClass rubyClass);
+
+        /// <summary>
         /// Gets the ruby class.
         /// </summary>
         /// <param name="className">Name of the class.</param>
@@ -103,6 +111,13 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="name">The name.</param>
         /// <returns></returns>
         object GetGlobalVariable(string name);
+
+        /// <summary>
+        /// Gets the global typed variable.
+        /// </summary>
+        /// <param name="name">The name</param>
+        /// <returns></returns>
+        T GetGlobalVariable<T>(string name);
 
         /// <summary>
         /// Loads the assemblies.

@@ -31,6 +31,11 @@ namespace System.Web.Mvc.IronRuby.Core
     {
         private readonly string _routesPath;
 
+        //added for xunit testing to create a "The" moc
+        public RubyEngine()
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RubyEngine"/> class.
         /// </summary>
@@ -93,6 +98,12 @@ namespace System.Web.Mvc.IronRuby.Core
         {
             // Remove the current controller from the classes cache so it's completely renewed.
             if (Runtime.Globals.ContainsVariable(className)) Runtime.Globals.RemoveVariable(className);
+        }
+
+        //added for xunit testing compatiblility
+        public T CreateInstance<T>(RubyClass rubyClass)
+        {
+            return (T)CreateInstance(rubyClass);
         }
 
         public object CreateInstance(RubyClass rubyClass)
@@ -403,6 +414,10 @@ namespace System.Web.Mvc.IronRuby.Core
         }
 
 
+        public T GetGlobalVariable<T>(string name)
+        {
+            return (T)GetGlobalVariable(name);
+        }
     }
 }
 

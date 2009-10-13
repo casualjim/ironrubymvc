@@ -7,11 +7,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.IronRuby.Controllers;
 using System.Web.Mvc.IronRuby.Core;
 using System.Web.Mvc.IronRuby.Tests.Core;
-using System.Web.Mvc.IronRuby.Tests.Core;
 using System.Web.Routing;
-using System.Web.Mvc.IronRuby.Controllers;
-using System.Web.Mvc.IronRuby.Core;
-using System.Web.Mvc.IronRuby.Tests.Core;
 using IronRuby;
 using IronRuby.Runtime;
 using Microsoft.Scripting.Hosting;
@@ -61,7 +57,7 @@ namespace System.Web.Mvc.IronRuby.Tests.Controllers
             base.EstablishContext();
 
 
-            _pathProvider = Dependency<IPathProvider>();
+            _pathProvider = An<IPathProvider>();
             _pathProvider.WhenToldTo(pp => pp.ApplicationPhysicalPath).Return(Environment.CurrentDirectory);
 
             _rubyEngine = new RubyEngine(_scriptRuntime, _pathProvider);

@@ -11,10 +11,7 @@ using System.Web.Mvc.IronRuby.Tests.Controllers;
 using System.Web.Mvc.IronRuby.ViewEngine;
 using System.Web.Routing;
 using IronRuby.Builtins;
-using System.Web.Mvc.IronRuby.Controllers;
-using System.Web.Mvc.IronRuby.Core;
 using System.Web.Mvc.IronRuby.Extensions;
-using System.Web.Mvc.IronRuby.ViewEngine;
 using Moq;
 using Xunit;
 
@@ -32,13 +29,55 @@ namespace System.Web.Mvc.IronRuby.Tests.Core
 
         protected override void EstablishContext()
         {
-            _pathProvider = Dependency<IPathProvider>();
+            base.EstablishContext();
+
+            //create a routes.rb file in current directory
+            createRoutesFile("routes.rb");
+
+            _pathProvider = An<IPathProvider>();
             _pathProvider.WhenToldTo(pp => pp.ApplicationPhysicalPath).Return(Environment.CurrentDirectory);
             _pathProvider.WhenToldTo(pp => pp.FileExists("~/routes.rb")).Return(true);
-            _pathProvider.WhenToldTo(pp => pp.Open("~/routes.rb")).Return(new MemoryStream(new byte[0]));
+            _pathProvider.WhenToldTo(pp => pp.MapPath("~/routes.rb")).Return("routes.rb");
 //            SetupResult.For(RouteTable.Routes).Return(new RouteCollection());
+            RouteTable.Routes.Clear();
         }
 
+        /// <summary>
+        /// create a default routes file in path
+        /// </summary>
+        /// <param name="path">routes file full path name to create</param>
+        private void createRoutesFile(string path)
+        {
+            var script = new StringBuilder();
+
+            script.AppendLine("#default routes");
+            script.AppendLine("");
+            script.AppendLine("$routes.ignore_route(\"{resource}.axd/{*pathInfo}\");");
+            script.AppendLine("");
+            script.AppendLine("$routes.map_route(\"default\", \"{controller}/{action}/{id}\",");
+            script.AppendLine("  {:controller => 'Home', :action => 'index', :id => ''}");
+            script.AppendLine(")");
+            string value = script.ToString();
+
+            CreateFile(path, value);
+        }
+
+        /// <summary>
+        /// Creates a file with content value in path
+        /// </summary>
+        /// <param name="path">file full path name</param>
+        /// <param name="value">file content as string</param>
+        protected void CreateFile(string path, string value)
+        {
+            FileStream fs = new FileStream(path, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(fs);
+            bw.Write(ASCIIEncoding.Default.GetBytes(value));
+            bw.Flush();
+            bw.Close();
+            fs.Close();
+        }
+        
+        
         protected override void Because()
         {
             _engine = RubyEngine.InitializeIronRubyMvc(_pathProvider, "~/routes.rb");
@@ -85,7 +124,7 @@ namespace System.Web.Mvc.IronRuby.Tests.Core
 
         protected override void EstablishContext()
         {
-            _pathProvider = Dependency<IPathProvider>();
+            _pathProvider = An<IPathProvider>();
             _pathProvider.WhenToldTo(pp => pp.ApplicationPhysicalPath).Return(Environment.CurrentDirectory);
             _pathProvider.WhenToldTo(pp => pp.FileExists("~/routes.rb")).Return(false);
         }
@@ -112,7 +151,7 @@ namespace System.Web.Mvc.IronRuby.Tests.Core
         protected override void EstablishContext()
         {
             base.EstablishContext();
-            _pathProvider = Dependency<IPathProvider>();
+            _pathProvider = An<IPathProvider>();
             _pathProvider.WhenToldTo(pp => pp.ApplicationPhysicalPath).Return(Environment.CurrentDirectory);
         }
 
