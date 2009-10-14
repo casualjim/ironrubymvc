@@ -236,8 +236,9 @@ namespace System.Web.Mvc.IronRuby.Core
                 throw new FileNotFoundException("Can't find the file", path);
 
             if (!PathProvider.FileExists(path)) return;
-
+            
             HandleError(() => Engine.ExecuteFile(PathProvider.MapPath(path), CurrentScope));
+            //HandleError(() => Engine.CreateOperations(CurrentScope).InvokeMember(null, "require", path));
         }
 
 
@@ -289,7 +290,8 @@ namespace System.Web.Mvc.IronRuby.Core
         /// <param name="path">The path.</param>
         public void RequireRubyFile(string path)
         {
-            Engine.RequireRubyFile(path);
+            //Engine.RequireRubyFile(path);
+            ExecuteScript("require '" + path.Replace("\\","/").Replace("~", string.Empty) + "'", CurrentScope);
         }
 
         /// <summary>
