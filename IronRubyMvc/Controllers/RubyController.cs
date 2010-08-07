@@ -208,27 +208,27 @@ namespace System.Web.Mvc.IronRuby.Controllers
             return TryUpdateModel(model, prefix, includeProperties, excludeProperties, ValueProvider);
         }
 
-        public new virtual bool TryUpdateModel<TModel>(TModel model, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual bool TryUpdateModel<TModel>(TModel model, IValueProvider valueProvider) where TModel : class
         {
             return TryUpdateModel(model, null, null, null, valueProvider);
         }
 
-        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, IValueProvider valueProvider) where TModel : class
         {
             return TryUpdateModel(model, prefix, null, null, valueProvider);
         }
 
-        public new virtual bool TryUpdateModel<TModel>(TModel model, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual bool TryUpdateModel<TModel>(TModel model, string[] includeProperties, IValueProvider valueProvider) where TModel : class
         {
             return TryUpdateModel(model, null, includeProperties, null, valueProvider);
         }
 
-        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, IValueProvider valueProvider) where TModel : class
         {
             return TryUpdateModel(model, prefix, includeProperties, null, valueProvider);
         }
 
-        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual bool TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties, IValueProvider valueProvider) where TModel : class
         {
             return base.TryUpdateModel(model, prefix, includeProperties, excludeProperties, valueProvider);
         }
@@ -258,29 +258,29 @@ namespace System.Web.Mvc.IronRuby.Controllers
             UpdateModel(model, prefix, includeProperties, excludeProperties, ValueProvider);
         }
 
-        public new virtual  void UpdateModel<TModel>(TModel model, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual  void UpdateModel<TModel>(TModel model, IValueProvider valueProvider) where TModel : class
         {
             UpdateModel(model, null, null, null, valueProvider);
         }
 
-        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, IValueProvider valueProvider) where TModel : class
         {
             UpdateModel(model, prefix, null, null, valueProvider);
         }
 
-        public new virtual  void UpdateModel<TModel>(TModel model, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual  void UpdateModel<TModel>(TModel model, string[] includeProperties, IValueProvider valueProvider) where TModel : class
         {
             UpdateModel(model, null, includeProperties, null, valueProvider);
         }
 
-        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, IValueProvider valueProvider) where TModel : class
         {
             UpdateModel(model, prefix, includeProperties, null, valueProvider);
         }
 
-        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties, IDictionary<string, ValueProviderResult> valueProvider) where TModel : class
+        public new virtual  void UpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties, IValueProvider valueProvider) where TModel : class
         {
-            base.UpdateModel(model, prefix, includeProperties,excludeProperties,valueProvider);
+            base.UpdateModel(model, prefix, includeProperties, excludeProperties, valueProvider);
         }
 
        

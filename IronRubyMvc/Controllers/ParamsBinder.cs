@@ -21,11 +21,14 @@ namespace System.Web.Mvc.IronRuby.Controllers
             bindingContext.EnsureArgumentNotNull("bindingContext");
 
             _params = (bindingContext.Model as IDictionary<SymbolId, object>) ?? new RubyParams();
-            bindingContext.ValueProvider.ForEach(pair =>
-                                                     {
-                                                         bindingContext.ModelState.SetModelValue(pair.Key, pair.Value);
-                                                         _params.Add(pair.Key.ToSymbolId(), pair.Value.AttemptedValue);
-                                                     });
+            var valueProvider = bindingContext.ValueProvider as IDictionary<string, ValueProviderResult>;
+            if (valueProvider == null) return _params;
+
+            valueProvider.ForEach(pair =>
+            {
+                bindingContext.ModelState.SetModelValue(pair.Key, pair.Value);
+                _params.Add(pair.Key.ToSymbolId(), pair.Value.AttemptedValue);
+            });
 
             return _params;
         }

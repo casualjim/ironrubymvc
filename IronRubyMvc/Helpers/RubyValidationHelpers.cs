@@ -10,37 +10,37 @@ namespace System.Web.Mvc.IronRuby.Helpers
 {
     public partial class RubyHtmlHelper
     {
-        public string ValidationMessage(string modelName)
+        public MvcHtmlString ValidationMessage(string modelName)
         {
             return _helper.ValidationMessage(modelName);
         }
 
-        public string ValidationMessage(string modelName, Hash htmlAttributes)
+        public MvcHtmlString ValidationMessage(string modelName, Hash htmlAttributes)
         {
             return _helper.ValidationMessage(modelName, htmlAttributes.ToDictionary());
         }
 
-        public string ValidationMessage(string modelName, string validationMessage)
+        public MvcHtmlString ValidationMessage(string modelName, string validationMessage)
         {
             return _helper.ValidationMessage(modelName, validationMessage);
         }
 
-        public string ValidationMessage(string modelName, string validationMessage, Hash htmlAttributes)
+        public MvcHtmlString ValidationMessage(string modelName, string validationMessage, Hash htmlAttributes)
         {
             return _helper.ValidationMessage(modelName, validationMessage, htmlAttributes.ToDictionary());
         }
 
-        public string ValidationSummary()
+        public MvcHtmlString ValidationSummary()
         {
             return _helper.ValidationSummary();
         }
 
-        public string ValidationSummary(string message)
+        public MvcHtmlString ValidationSummary(string message)
         {
             return _helper.ValidationSummary(message);
         }
 
-        public string ValidationSummary(string message, Hash htmlAttributes)
+        public MvcHtmlString ValidationSummary(string message, Hash htmlAttributes)
         {
             return _helper.ValidationSummary(message, htmlAttributes.ToDictionary());
         }

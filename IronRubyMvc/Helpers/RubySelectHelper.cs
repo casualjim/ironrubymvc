@@ -10,47 +10,47 @@ namespace System.Web.Mvc.IronRuby.Helpers
 {
     public partial class RubyHtmlHelper
     {
-        public string DropDownList(string name, string optionLabel)
+        public MvcHtmlString DropDownList(string name, string optionLabel)
         {
             return _helper.DropDownList(name, optionLabel);
         }
 
-        public string DropDownList(string name, RubyArray selectList, string optionLabel)
+        public MvcHtmlString DropDownList(string name, RubyArray selectList, string optionLabel)
         {
             return _helper.DropDownList(name, selectList.ToSelectListItemList(), optionLabel);
         }
 
-        public string DropDownList(string name, RubyArray selectList, string optionLabel, Hash htmlAttributes)
+        public MvcHtmlString DropDownList(string name, RubyArray selectList, string optionLabel, Hash htmlAttributes)
         {
             return _helper.DropDownList(name, selectList.ToSelectListItemList(), optionLabel, htmlAttributes.ToDictionary());
         }
 
-        public string DropDownList(string name)
+        public MvcHtmlString DropDownList(string name)
         {
             return _helper.DropDownList(name);
         }
 
-        public string DropDownList(string name, RubyArray selectList)
+        public MvcHtmlString DropDownList(string name, RubyArray selectList)
         {
             return _helper.DropDownList(name, selectList.ToSelectListItemList());
         }
 
-        public string DropDownList(string name, RubyArray selectList, Hash htmlAttributes)
+        public MvcHtmlString DropDownList(string name, RubyArray selectList, Hash htmlAttributes)
         {
             return _helper.DropDownList(name, selectList.ToSelectListItemList(), htmlAttributes.ToDictionary());
         }
 
-        public string ListBox(string name)
+        public MvcHtmlString ListBox(string name)
         {
             return _helper.ListBox(name);
         }
 
-        public string ListBox(string name, RubyArray selectList)
+        public MvcHtmlString ListBox(string name, RubyArray selectList)
         {
             return _helper.ListBox(name, selectList.ToSelectListItemList());
         }
 
-        public string ListBox(string name, RubyArray selectList, Hash htmlAttributes)
+        public MvcHtmlString ListBox(string name, RubyArray selectList, Hash htmlAttributes)
         {
             return _helper.ListBox(name, selectList.ToSelectListItemList(), htmlAttributes.ToDictionary());
         }
