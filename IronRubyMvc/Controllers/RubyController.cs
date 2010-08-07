@@ -45,17 +45,18 @@ namespace System.Web.Mvc.IronRuby.Controllers
 
         private void PopulateParams()
         {
-            var modelType = typeof (IDictionary<SymbolId, object>);
             var request = ControllerContext.HttpContext.Request;
+            var model = new Dictionary<SymbolId, object>(
+                ControllerContext.RouteData.Values.Count + request.QueryString.Count + request.Form.Count);
+            var modelType = model.GetType();
             var binder = Binders.GetBinder(modelType);
             var modelBindingContext = new ModelBindingContext
-                                          {
-                                              Model = new Dictionary<SymbolId, object>(ControllerContext.RouteData.Values.Count + request.QueryString.Count + request.Form.Count),
-                                              ModelName = "params",
-                                              ModelState = ModelState,
-                                              ModelType = modelType,
-                                              ValueProvider = ValueProvider
-                                          };
+            {
+                ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType(() => model, modelType),
+                ModelName = "params",
+                ModelState = ModelState,
+                ValueProvider = ValueProvider
+            };
             _params = binder.BindModel(ControllerContext, modelBindingContext) as IDictionary<SymbolId, object>;
             
         }
