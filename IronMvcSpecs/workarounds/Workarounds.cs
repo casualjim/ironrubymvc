@@ -35,13 +35,21 @@ namespace IronRubyMvcWorkarounds
             return Ruby.CreateRuntime(runtimeSetup);
         }
 
+        public static RubyContext GetExecutionContext(ScriptEngine engine)
+        {
+            ContractUtils.RequiresNotNull(engine, "engine");
+            var context = Microsoft.Scripting.Hosting.Providers.HostingHelpers.GetLanguageContext(engine) as RubyContext;
+            if (context == null)
+            {
+                throw new InvalidOperationException("Given engine is not a Ruby engine");
+            }
+            return context;
+        }
+
         public static ScriptEngine GetRubyEngine(ScriptRuntime runtime){
             return runtime.GetRubyEngine();        
         }
 
-        public static RubyContext GetExecutionContext(ScriptEngine engine){
-            return Ruby.GetExecutionContext(engine);
-        }
     }
 
     #region MockTest
