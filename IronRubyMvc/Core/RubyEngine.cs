@@ -18,6 +18,7 @@ using IronRuby.Runtime;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
 using Microsoft.Scripting.Runtime;
+using Microsoft.Scripting.Utils;
 using DLRConfigSection = Microsoft.Scripting.Hosting.Configuration.Section;
 #endregion
 
@@ -329,11 +330,28 @@ namespace System.Web.Mvc.IronRuby.Core
 
             return message;
         }
+        
+        public static RubyContext GetExecutionContext(ScriptEngine engine)
+        {
+            ContractUtils.RequiresNotNull(engine, "engine");
+            var context = Microsoft.Scripting.Hosting.Providers.HostingHelpers.GetLanguageContext(engine) as RubyContext;
+            if (context == null)
+            {
+                throw new InvalidOperationException("Given engine is not a Ruby engine");
+            }
+            return context;
+        }
+
+        public static RubyContext GetExecutionContext(ScriptRuntime runtime)
+        {
+            ContractUtils.RequiresNotNull(runtime, "runtime");
+            return GetExecutionContext(Ruby.GetEngine(runtime));
+        }
 
         private void Initialize()
         {
             Engine = Ruby.GetEngine(Runtime);
-            Context = Ruby.GetExecutionContext(Engine);
+            Context = GetExecutionContext(Engine);
             CurrentScope = Engine.CreateScope();
             Operations = Engine.CreateOperations();
             LoadAssemblies(typeof (object), typeof (Uri), typeof (HttpResponseBase), typeof (MembershipCreateStatus),
