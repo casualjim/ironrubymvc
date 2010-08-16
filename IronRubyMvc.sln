@@ -1,15 +1,15 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.Mvc.IronRuby", "IronRubyMvc\System.Web.Mvc.IronRuby.csproj", "{46333EBB-C1FF-4E28-B48E-CB3D5BB70CDB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronRubyMvcWeb", "IronRubyMvcWeb\IronRubyMvcWeb.csproj", "{2E516619-7937-42EC-9427-AA554B36B1B7}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A75F5714-408B-405F-B535-C50C575191A2}"
 	ProjectSection(SolutionItems) = preProject
 		IronRubyMvcKey.public = IronRubyMvcKey.public
 		IronRubyMvcKey.snk = IronRubyMvcKey.snk
 		README.markdown = README.markdown
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.Mvc.IronRuby", "IronRubyMvc\System.Web.Mvc.IronRuby.csproj", "{46333EBB-C1FF-4E28-B48E-CB3D5BB70CDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronRubyMvcWeb", "IronRubyMvcWeb\IronRubyMvcWeb.csproj", "{2E516619-7937-42EC-9427-AA554B36B1B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronRubyMvcLibrary.Tests", "IronRubyMvc.Tests\IronRubyMvcLibrary.Tests.csproj", "{13CD326E-5C1A-4404-A1AB-8D0BA6D9FDF9}"
 EndProject
